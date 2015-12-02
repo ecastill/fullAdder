@@ -1,0 +1,111 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use Ieee.std_logic_unsigned.all;
+
+
+entity vhdlCalc is
+  port (
+    R1: in std_logic; 
+    R2: in std_logic; 
+    add: in std_logic;
+    sub: in std_logic;
+    SW17: in std_logic;
+    clk: in std_logic;
+    SW : in std_logic_vector(7 downto 0);
+  LEDR : out std_logic_vector(7 downto 0); 
+  LEDG8: out std_logic);
+end vhdlCalc;
+
+architecture behavior of vhdlCalc is
+
+signal unsigned_num_1: std_logic_vector(7 downto 0);
+signal unsigned_num_2: std_logic_vector(7 downto 0);
+signal unsigned_num1: std_logic_vector(15 downto 0);
+signal unsigned_num2: std_logic_vector(15 downto 0);
+signal unsigned_answer: std_logic_vector(15 downto 0);
+
+begin
+  process(save_1, save_2, add, sub, SW17, clk)
+    begin
+      LEDR <= SW;
+      LEDG8 <= '0';
+      if (save_1='0') then
+        unsigned_num_1 <= SW;
+      end if;
+      if (save_2='0') then
+        unsigned_num_2 <= SW;
+      end if;
+      if (add='0') then
+      if (SW17='1') then
+        unsigned_answer <= unsigned_num_1 * unsigned_num_2;
+LEDR <= unsigned_answer(15 downto 0);
+if (unsigned_answer(31) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(30) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(29) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(28) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(27) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(26) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(25) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(24) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(23) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(22) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(21) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(20) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(19) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(18) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(17) = '1') then
+LEDG8 <= '1';
+end if;
+if (unsigned_answer(16) = '1') then
+LEDG8 <= '1';
+end if;
+else
+unsigned_answer (15 downto 0) <=unsigned_num_1 + unsigned_num_2;
+if (unsigned_num_1(15) = unsigned_num_2(15)) and
+(unsigned_num_1(15)/=unsigned_answer(15)) then
+LEDG8 <= '1';
+LEDR <= unsigned_answer (15 downto 0);
+else
+LEDR <= unsigned_answer (15 downto 0);
+end if;
+end if;
+end if;
+if (sub='0') then
+unsigned_answer <= unsigned_number_1 – unsigned_number_2;
+if (unsigned_num_1 > unsigned_number_2) then
+LEDR <= unsigned_answer (15 downto 0);
+else
+LEDG8 <= '1';
+end if;
+end if;
+end process;
+end behavior;
